@@ -1,0 +1,52 @@
+# 策略配置，直接内联定义 model 和 noise_scheduler
+policy:
+  _target_: diffusion_policy.policy.diffusion_unet_lowdim_policy.DiffusionUnetLowdimPolicy
+  # 定义model实例，如ConditionalUnet1D需要horizon,obs_dim,action_dim等参数（请根据实际实现调整）
+  
+  model:
+    _target_: diffusion_policy.model.diffusion.conditional_unet1d.ConditionalUnet1D
+    horizon: 30
+    obs_dim: 27
+    action_dim: 8
+  # 定义noise_scheduler实例
+  noise_scheduler:
+    _target_: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+    # 若DDPMScheduler需要参数请在此添加，如num_train_timesteps: 1000
+    num_train_timesteps: 1000
+  horizon: 30
+  obs_dim: 27
+  action_dim: 8
+  n_action_steps: 1
+  n_obs_steps: 1
+  num_inference_steps: 1000
+  
+training:
+  device: cuda:0
+  seed: 42
+  num_epochs: 1000
+  checkpoint_every: 50
+  val_every: 10
+  use_ema: true
+
+logging:
+  mode: online
+  project: diffusion_policy_antmaze
+  name: antmaze_run
+
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 0.0001
+  betas: [0.95, 0.999]
+  weight_decay: 1.0e-6
+
+dataloader:
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  shuffle: true
+
+val_dataloader:
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  shuffle: false
