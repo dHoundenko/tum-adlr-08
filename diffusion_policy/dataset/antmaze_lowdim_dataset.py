@@ -57,7 +57,7 @@ class AntMazeLowdimDataset(BaseLowdimDataset):
 
     def get_validation_dataset(self):
     # 复用 self.__init__ 里用过的 zarr_path
-    return AntMazeLowdimDataset(
-        zarr_path='antmaze_medium_play_replay.zarr',
-        split='val',
+        return AntMazeLowdimDataset(
+            zarr_path='antmaze_medium_play_replay.zarr',
+            split='val',
     )

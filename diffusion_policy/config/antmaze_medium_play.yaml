@@ -12,7 +12,7 @@ task:
   action_dim: 8
   dataset:
     _target_: diffusion_policy.dataset.antmaze_lowdim_dataset.AntMazeLowdimDataset
-    zarr_path: antmaze_medium_play_replay.zarr
+    zarr_path: data/antmaze_medium_play_replay.zarr
     split: train
     train_ratio: 0.9
 
