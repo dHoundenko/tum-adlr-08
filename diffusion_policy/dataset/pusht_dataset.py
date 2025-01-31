@@ -15,7 +15,7 @@ class PushTLowdimDataset(BaseLowdimDataset):
             horizon=1,
             pad_before=0,
             pad_after=0,
-            obs_key='keypoint',
+            obs_key='obs',
             state_key='state',
             action_key='action',
             seed=42,

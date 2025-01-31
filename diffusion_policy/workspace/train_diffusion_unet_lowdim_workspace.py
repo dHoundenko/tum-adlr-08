@@ -104,14 +104,16 @@ class TrainDiffusionUnetLowdimWorkspace(BaseWorkspace):
             ema = hydra.utils.instantiate(
                 cfg.ema,
                 model=self.ema_model)
+        
 
+        #D4RL is offline dataset, so we don't need env runner
         # configure env runner
-        env_runner: BaseLowdimRunner
-        env_runner = hydra.utils.instantiate(
-            cfg.task.env_runner,
-            output_dir=self.output_dir)
-        assert isinstance(env_runner, BaseLowdimRunner)
-
+        #env_runner: BaseLowdimRunner
+        #env_runner = hydra.utils.instantiate(
+        #    cfg.task.env_runner,
+        #    output_dir=self.output_dir)
+        #assert isinstance(env_runner, BaseLowdimRunner)
+        
         # configure logging
         wandb_run = wandb.init(
             dir=str(self.output_dir),
@@ -211,12 +213,14 @@ class TrainDiffusionUnetLowdimWorkspace(BaseWorkspace):
                 if cfg.training.use_ema:
                     policy = self.ema_model
                 policy.eval()
+                
 
+                #D4RL is offline dataset, so we don't need env runner
                 # run rollout
-                if (self.epoch % cfg.training.rollout_every) == 0:
-                    runner_log = env_runner.run(policy)
+                #if (self.epoch % cfg.training.rollout_every) == 0:
+                #    runner_log = env_runner.run(policy)
                     # log all
-                    step_log.update(runner_log)
+                #    step_log.update(runner_log)
 
                 # run validation
                 if (self.epoch % cfg.training.val_every) == 0:

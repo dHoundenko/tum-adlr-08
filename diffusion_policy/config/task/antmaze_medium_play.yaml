@@ -8,12 +8,11 @@ action_dim: 8
 dataset:
   _target_: diffusion_policy.dataset.antmaze_lowdim_dataset.AntMazeLowdimDataset
   zarr_path: data/antmaze_medium_play_replay.zarr
-  horizon: ${horizon}
-  pad_before: ${eval:'${n_obs_steps}-1+${n_latency_steps}'}
-  pad_after: ${eval:'${n_action_steps}-1'}
+  horizon: 16
+  pad_before: 1
+  pad_after: 1
   seed: 42
   val_ratio: 0.02
   max_train_episodes: 90
-  split: train
-  train_ratio: 0.9
-
+  obs_key: state
+  action_key: action

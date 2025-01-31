@@ -13,8 +13,8 @@ task:
   dataset:
     _target_: diffusion_policy.dataset.antmaze_lowdim_dataset.AntMazeLowdimDataset
     zarr_path: data/antmaze_medium_play_replay.zarr
-    split: train
-    train_ratio: 0.9
+    #split: train
+    #train_ratio: 0.9
 
 
 
@@ -72,6 +72,7 @@ policy:
 
   # scheduler.step params
   # predict_epsilon: True
+
 
 ema:
   _target_: diffusion_policy.model.diffusion.ema_model.EMAModel
@@ -136,10 +137,10 @@ logging:
 
 checkpoint:
   topk:
-    monitor_key: test_mean_score
-    mode: max
+    monitor_key: train_loss
+    mode: min
     k: 5
-    format_str: 'epoch={epoch:04d}-test_mean_score={test_mean_score:.3f}.ckpt'
+    format_str: 'epoch={epoch:04d}-train_loss={train_loss:.3f}.ckpt'
   save_last_ckpt: True
   save_last_snapshot: False
 
