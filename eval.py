@@ -8,6 +8,7 @@ import sys
 sys.stdout = open(sys.stdout.fileno(), mode='w', buffering=1)
 sys.stderr = open(sys.stderr.fileno(), mode='w', buffering=1)
 
+import d4rl
 import os
 import pathlib
 import click

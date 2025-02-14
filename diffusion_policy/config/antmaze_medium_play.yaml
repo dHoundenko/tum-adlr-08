@@ -15,8 +15,17 @@ task:
     zarr_path: data/antmaze_medium_play_replay.zarr
     #split: train
     #train_ratio: 0.9
-
-
+  
+  env_runner:
+    _target_: diffusion_policy.env_runner.antmaze_lowdim_runner.AntMazeLowdimRunner
+    env_name: antmaze-medium-play-v0
+    episodes: 5
+    max_steps: 1000
+    render_hw: [240, 360]
+    fps: 30
+    crf: 22
+    n_obs_steps: 2
+    n_action_steps: 8
 
 
 
