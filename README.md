@@ -2,6 +2,7 @@
 
 Changes were made to:
 * `diffusion_policy/dataset/antmaze_lowdim_dataset.py`
+* `diffusion_policy/workspace/antmaze_train_diffusion_unet_lowdim_workspace.py`
 * `diffusion_policy/config/antmaze_medium_play.yaml`
 * `diffusion_policy/config/task/antmaze_medium_play.yaml`
 * `diffusion_policy/env_runner/antmaze_lowdim_runner.py` (Unfinished)
