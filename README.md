@@ -1,5 +1,21 @@
 # Diffusion Policy
 
+Changes were made to:
+* `diffusion_policy/dataset/antmaze_lowdim_dataset.py`
+* `diffusion_policy/config/antmaze_medium_play.yaml`
+* `diffusion_policy/config/task/antmaze_medium_play.yaml`
+Unfinished:
+* `diffusion_policy/env_runner/antmaze_lowdim_runner.py`
+
+To generate video:
+
+1. Modify checkpoint path
+
+2. execute the script
+```console
+$ python gen_vid.py
+```
+
 [[Project page]](https://diffusion-policy.cs.columbia.edu/)
 [[Paper]](https://diffusion-policy.cs.columbia.edu/#paper)
 [[Data]](https://diffusion-policy.cs.columbia.edu/data/)
