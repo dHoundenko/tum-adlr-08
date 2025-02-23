@@ -4,12 +4,11 @@ Changes were made to:
 * `diffusion_policy/dataset/antmaze_lowdim_dataset.py`
 * `diffusion_policy/config/antmaze_medium_play.yaml`
 * `diffusion_policy/config/task/antmaze_medium_play.yaml`
-Unfinished:
-* `diffusion_policy/env_runner/antmaze_lowdim_runner.py`
+* `diffusion_policy/env_runner/antmaze_lowdim_runner.py` (Unfinished)
 
 To generate video:
 
-1. Modify checkpoint path
+1. Modify checkpoint path and name in `gen_vid.py`
 
 2. execute the script
 ```console
