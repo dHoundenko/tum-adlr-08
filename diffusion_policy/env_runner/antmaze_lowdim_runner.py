@@ -67,10 +67,10 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
                 thread_type='FRAME',
                 thread_count=1
             ),
-            file_path=None,  # Will be set per episode.
+            file_path=None,  # Will be set per episode
             steps_per_render=1
         )
-        # Wrap with multi-step wrapper for temporal aggregation.
+        # Wrap with multi-step wrapper for temporal aggregation
         env = MultiStepWrapper(
             env,
             n_obs_steps=self.n_obs_steps,
@@ -100,7 +100,7 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
 
         for ep in range(self.episodes):
             env = self._make_env()
-            # Set a unique video file path for this episode.
+            # Set a unique video file path for this episode
             video_file = pathlib.Path(self.output_dir).joinpath(
                 'media', f"antmaze_ep{ep}_{wandb.util.generate_id()}.mp4"
             )
@@ -117,9 +117,9 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
             obs_history = [obs for _ in range(n_obs_steps)]
             
             while not done and step < self.max_steps:
-                # Prepare the observation history as a tensor of shape [1, n_obs_steps, obs_dim].
+                # Prepare the observation history as a tensor of shape [1, n_obs_steps, obs_dim]
                 obs_array = np.array(obs_history)  # shape: (n_obs_steps, state_dim)
-                # Adjust the observation dimension if necessary.
+
                 desired_dim = policy.obs_dim
                 current_dim = obs_array.shape[-1]
                 if current_dim < desired_dim:
@@ -129,7 +129,7 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
                 elif current_dim > desired_dim:
                     obs_array = obs_array[:, :desired_dim]
                 
-                # Convert to tensor and add batch dimension.
+                # Convert to tensor and add batch dim
                 obs_tensor = torch.tensor(obs_array, dtype=torch.float32).unsqueeze(0)  # shape: (1, n_obs_steps, obs_dim)
                 obs_tensor = obs_tensor.to(device)
                 obs_dict = {"obs": obs_tensor}
@@ -137,7 +137,7 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
                 with torch.no_grad():
                     action_dict = policy.predict_action(obs_dict)
 
-                # Convert action tensor back to numpy.
+                # Convert back to numpy
                 np_action_dict = dict_apply(action_dict, lambda x: x.detach().cpu().numpy())
                 action = np_action_dict['action']
 
@@ -153,28 +153,3 @@ class AntMazeLowdimRunner(BaseLowdimRunner):
         wandb_videos = [wandb.Video(vp) for vp in video_paths if vp is not None]
         return {'test_sim_videos': wandb_videos}
 
-# If you want to test this module directly, you can include a main block:
-# if __name__ == '__main__':
-#     # This is just an example; in practice, instantiate your policy and load your checkpoint.
-#     from diffusion_policy.policy.base_lowdim_policy import BaseLowdimPolicy
-
-#     class DummyPolicy(BaseLowdimPolicy):
-#         def __init__(self):
-#             self.device = torch.device("cpu")
-#             self.obs_dim = 60  # for example, expected obs dimension
-#             self.dtype = torch.float32
-
-#         def reset(self):
-#             pass
-
-#         def predict_action(self, obs_dict):
-#             # For testing, just return zeros with a shape compatible with expected action dimensions.
-#             B = obs_dict['obs'].shape[0]
-#             # Assume action shape is (B, 1, action_dim); adjust as needed.
-#             action = torch.zeros(B, 1, 9, dtype=self.dtype)
-#             return {'action': action}
-
-#     dummy_policy = DummyPolicy()
-#     runner = AntMazeLowdimRunner(output_dir='.')
-#     video_log = runner.run(dummy_policy)
-#     print(video_log)
