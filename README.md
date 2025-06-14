@@ -1,4 +1,4 @@
-# Diffusion Policy
+# Contributions of this Project
 
 Changes were made to:
 * `diffusion_policy/dataset/antmaze_lowdim_dataset.py`
@@ -16,7 +16,7 @@ To generate video:
 $ python gen_vid.py
 ```
 
-# Original desciption by Cheng Chi et al. (No text adjusted):
+# Original description by Cheng Chi et al.
 
 [[Project page]](https://diffusion-policy.cs.columbia.edu/)
 [[Paper]](https://diffusion-policy.cs.columbia.edu/#paper)
